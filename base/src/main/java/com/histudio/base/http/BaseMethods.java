@@ -153,7 +153,7 @@ public abstract class BaseMethods implements ISingleable {
                 // 忽略https验证请求
                 .sslSocketFactory(sslContext.getSocketFactory())
                 .hostnameVerifier(DO_NOT_VERIFY)
-                //                .retryOnConnectionFailure(true)
+                .retryOnConnectionFailure(false) // 不重复请求
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build();
@@ -179,8 +179,7 @@ public abstract class BaseMethods implements ISingleable {
     public Gson buildGson() {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                .registerTypeAdapter(Integer.class, new IntegerDefault0Adapter())
-                .registerTypeAdapter(int.class, new IntegerDefault0Adapter())
+                .registerTypeAdapterFactory(new NullStringToEmptyAdapterFactory())// null 转为 ""
                 .create();
         return gson;
     }

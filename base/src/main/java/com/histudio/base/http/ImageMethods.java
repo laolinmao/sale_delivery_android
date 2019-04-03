@@ -1,6 +1,8 @@
 package com.histudio.base.http;
 
 
+import android.os.AsyncTask;
+
 import com.histudio.base.HiManager;
 import com.histudio.base.compressor.Compressor;
 import com.histudio.base.entity.ResIdData;
@@ -8,8 +10,6 @@ import com.histudio.base.http.api.CommonApi;
 import com.histudio.base.util.FileUtils;
 import com.histudio.base.util.ImageUtil;
 import com.socks.library.KLog;
-
-import android.os.AsyncTask;
 
 import java.io.File;
 import java.util.HashMap;
@@ -38,8 +38,8 @@ public class ImageMethods extends BaseMethods {
      * 传单个图片
      */
 
-    public void updateImageInfo(Subscriber<ResIdData> remotePath, String localPath, String moduleName) {
-        uploadImageTask task = new uploadImageTask(remotePath, localPath, moduleName);
+    public void updateImageInfo(Subscriber<ResIdData> remotePath, String localPath) {
+        uploadImageTask task = new uploadImageTask(remotePath, localPath);
         task.execute();
     }
 
@@ -48,12 +48,10 @@ public class ImageMethods extends BaseMethods {
 
     private class uploadImageTask extends AsyncTask<String, String, File> {
         private String localPath;
-        private String moduleName;
         private Subscriber<ResIdData> remotePath;
 
-        public uploadImageTask(Subscriber<ResIdData> remotePath, String localPath, String moduleName) {
+        public uploadImageTask(Subscriber<ResIdData> remotePath, String localPath) {
             this.remotePath = remotePath;
-            this.moduleName = moduleName;
             this.localPath = localPath;
         }
 
