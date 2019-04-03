@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="toolbar_height">45dp</dimen>
+    <dimen name="toolbar_title_size">16sp</dimen>
+    <dimen name="divider_line_width">0.5dp</dimen>
+    <dimen name="divider_line_height">0.5dp</dimen>
+    <dimen name="padding">10dp</dimen>
+    <!-- 文字居中显示 -->
+    <dimen name="app_detail_operate_ctrl_bar_min_height">48dip</dimen>
+    <dimen name="app_detail_operate_ctrl_bar_default_font_size">14sp</dimen>
+    <dimen name="app_detail_operate_ctrl_bar_default_drawable_padding">5dip</dimen>
+    <!-- 全局的左右上下padding double -->
+    <dimen name="common_space">8dip</dimen>
+    <dimen name="common_space_16dp">16dip</dimen>
+    <dimen name="common_medium_space">12dip</dimen>
+    <dimen name="common_min_space">4dip</dimen>
+    <dimen name="common_max_space">16dip</dimen>
+    <!-- 默认头像大小 -->
+    <dimen name="common_user_avatar_size_small">30dp</dimen>
+    <dimen name="common_user_avatar_size">40dp</dimen>
+    <dimen name="common_user_avatar_size_big">64dp</dimen>
+    <dimen name="dialog_width">200dp</dimen>
+</resources>

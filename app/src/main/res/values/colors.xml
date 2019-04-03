@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 通用色值 -->
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 主要用于控件 颜色 -->
+    <color name="common_item_press">#f3f3f3</color>
+
+    <!-- 主要用于文字颜色 -->
+
+    <color name="common_edit_line">#739ff5</color>
+    <color name="common_edit_text">#7fcacaca</color>
+
+    <!-- 主要用于控件 颜色 -->
+    <color name="stu_card_press">#f6f6f6</color>
+    <color name="theme_color">#63c0ed</color>
+    <color name="common_bg">#F0F0F0</color>
+
+    <color name="pre_color_1">#ff8162</color>
+    <color name="pre_color_2">#666666</color>
+    <color name="pre_color_3">#cbcbcb</color>
+
+
+    <color name="status_late">#7985a7</color>
+    <color name="status_leave">#e4d248</color>
+    <color name="status_unarrive">#d0021b</color>
+    <color name="status_arrive">#9b9b9b</color>
+
+
+    <!-- 公用标题栏分割线 -->
+    <color name="common_textColor_hint">#d6d6d6</color> <!-- 输入框提示文本颜色 -->
+    <color name="common_textColor_edittext">#838383</color> <!-- 输入框提示文本颜色 -->
+    <color name="common_textColor_gray">#353535</color>
+    <color name="common_textColor_blue">#667af8</color>
+    <!-- 公用的按钮字颜色 -->
+    <!-- 输入框提示文本颜色 -->
+    <!-- 输入框提示文本颜色 -->
+    <color name="common_textColor_menubarNormal">#818181</color>
+    <color name="common_textColor_menuLabel">#818181</color>
+    <color name="common_text_content">#a6a5a5</color>
+    <color name="text_gray">#666666</color>
+    <color name="text_blue">#667af8</color>
+    <!-- 公用线 -->
+
+    <!-- 对话框相关 -->
+    <color name="common_dialog_bg">#FFFFFF</color>
+    <color name="common_dialog_textColor">#63c0ed</color>
+    <color name="ass_gray2">#888888</color>
+
+    <!-- 聊天 -->
+    <color name="transparent">#00000000</color>
+    <color name="transparent_30">#cfffffff</color>
+    <!-- 消息 -->
+
+    <color name="text_up">#d0021b</color>
+    <color name="text_down">#2eb872</color>
+
+    <color name="common_white_tint_color">#FAFAFA</color>
+    <color name="common_background_color_f5">#F5F5F5</color>
+    <color name="gray_color_b0">#b0b0b0</color>
+</resources>

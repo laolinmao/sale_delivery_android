@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.histudio.ui.custom.HiImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        fresco:pressedStateOverlayImage="@color/color_20_black"
+        fresco:placeholderImage="@color/bg_gray"
+        fresco:viewAspectRatio="0.361"
+        fresco:fadeDuration="300"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+</com.histudio.ui.custom.HiImageView>

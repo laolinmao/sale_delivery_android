@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/main_sale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/common_transparent_selector"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/main_sale"
+            android:gravity="center"
+            android:text="销售"
+            android:textColor="@color/red" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/color_ececec" />
+
+        <TextView
+            android:id="@+id/main_anjian"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/common_transparent_selector"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/main_anjian"
+            android:gravity="center"
+            android:text="安检"
+            android:textColor="@color/red" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_ececec" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/main_yuangong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/common_transparent_selector"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/main_yuangong"
+            android:gravity="center"
+            android:text="员工信息查询"
+            android:textColor="@color/red" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/color_ececec" />
+
+        <TextView
+            android:id="@+id/main_bottle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/common_transparent_selector"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/main_bottle"
+            android:gravity="center"
+            android:text="气瓶流转查询"
+            android:textColor="@color/red" />
+    </LinearLayout>
+</LinearLayout>

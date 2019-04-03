@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/pop_lu"
+            android:title="钢瓶号录入"/>
+
+    <item
+            android:id="@+id/pop_ji"
+            android:title="身份证采集"/>
+    <item
+            android:id="@+id/pop_biao"
+            android:title="客户抄表"/>
+    <item
+            android:id="@+id/pop_yong"
+            android:title="客户借用"/>
+
+    <item
+            android:id="@+id/pop_bu"
+            android:title="客户标签补打"/>
+
+    <item
+            android:id="@+id/pop_caiji"
+            android:title="图像采集"/>
+</menu>

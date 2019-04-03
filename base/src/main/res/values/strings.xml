@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">base</string>
+    <!-- 时间格式 -->
+    <string name="minute_desc">%1$s分钟前</string>
+    <string name="hour_desc">%1$s小时前</string>
+
+    <string name="person_year">年</string>
+    <string name="person_month">月</string>
+    <string name="person_day">日</string>
+    <string name="person_level">级</string>
+</resources>

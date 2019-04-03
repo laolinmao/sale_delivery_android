@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/pop_anjian"
+            android:title="送达安检"/>
+
+    <item
+            android:id="@+id/pop_pay"
+            android:title="在线支付"/>
+    <item
+            android:id="@+id/pop_refresh"
+            android:title="刷新订单"/>
+    <item
+            android:id="@+id/pop_di"
+            android:title="运送单留底"/>
+</menu>

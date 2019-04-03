@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="gridview" type="id"/>
+    <item name="webview" type="id"/>
+    <item name="scrollview" type="id"/>
+    <item name="hi_recyclerview_id" type="id"/>
+    <!-- 空视图id -->
+    <item name="hi_empty_view_id" type="id"></item>
+    <!-- 内容区的id -->
+    <item name="contentView" type="id"/>
+    <!-- 通知栏 -->
+    <item name="notify_pho_upate_info" type="id"/>
+    <item name="np__increment" type="id" />
+    <item name="np__decrement" type="id" />
+
+    <item name="BaseQuickAdapter_viewholder_support" type="id"/>
+    <item name="BaseQuickAdapter_swiping_support" type="id"/>
+    <item name="BaseQuickAdapter_dragging_support" type="id"/>
+    <item name="BaseQuickAdapter_databinding_support" type="id"/>
+</resources>

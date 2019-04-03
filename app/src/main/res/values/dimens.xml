@@ -1,0 +1,46 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!-- 通用字体大小设置 -->
+    <dimen name="text_size_medium">14dp</dimen>
+    <dimen name="text_size_large">16dp</dimen>
+
+    <dimen name="common_card_margin">0dp</dimen>
+    <dimen name="divider">0.5dp</dimen>
+    <dimen name="leftmargin">20dp</dimen>
+    <dimen name="rightmargin">20dp</dimen>
+
+
+    <!--公用尺寸 -->
+    <dimen name="textSize_normal">16sp</dimen><!-- 普通文本大小-->
+    <!-- 提示文本大小-->
+    <!-- 按钮字体大小 -->
+    <dimen name="textSize_title">18sp</dimen><!-- 标题 -->
+    <!-- 二级标题 -->
+    <!-- 标题左右两边字体大小 -->
+    <!-- 标题左右两边字体大小 -->
+    <!-- 输入框字体大小-->
+    <dimen name="textSize_edittext">16sp</dimen><!-- 输入框字体大小-->
+    <dimen name="textSize_menubar">16sp</dimen><!-- 设置等水平菜单项文本大小 -->
+    <dimen name="textSize_menubar_content">14sp</dimen>
+    <!-- 简单列表的字体大小 -->
+    <!-- 对话框 -->
+    <dimen name="dialog_titleTextSize">17sp</dimen>
+    <dimen name="dialog_btnTextSize">17sp</dimen>
+    <dimen name="dialog_contentTextSize">17sp</dimen>
+    <dimen name="dialog_btn_minheight">50dip</dimen>
+    <dimen name="dialog_minHeight">150dp</dimen>
+
+    <!-- 菜单栏（如设置和个人信息等菜单栏）-->
+    <dimen name="menubar_layout_minHeight">48dip</dimen>
+    <dimen name="menubar_content_paddingH">8dp</dimen>
+    <!-- 右边箭头-->
+    <!-- 标题栏 -->
+    <!-- 编辑框 -->
+    <dimen name="common_editView_padding">10dip</dimen>
+    <dimen name="common_editView_drawpadding">10dip</dimen>
+    <dimen name="common_editText_minHeight">45dip</dimen>
+    <dimen name="about_logo_marginTop">100dip</dimen>
+
+    <!-- 聊天 -->
+</resources>

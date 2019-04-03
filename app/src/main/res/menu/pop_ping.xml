@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pop_refresh"
+        android:title="刷新" />
+    <item
+        android:id="@+id/pop_zhong"
+        android:title="重瓶号" />
+    <item
+        android:id="@+id/pop_qing"
+        android:title="空瓶号" />
+    <!--<item
+        android:id="@+id/pop_zhong_off"
+        android:title="重瓶号（离线）" />
+    <item
+        android:id="@+id/pop_qing_off"
+        android:title="空瓶号（离线）" />-->
+</menu>

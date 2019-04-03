@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 头像 -->
+    <integer name="image_size_header_small">72</integer>
+    <integer name="image_size_header_medium">96</integer>
+    <integer name="image_size_header_large">144</integer>
+
+    <!-- 图片 -->
+    <integer name="image_size_photo_small">144</integer>
+    <integer name="image_size_photo_medium">500</integer>
+    <integer name="image_size_photo_large">800</integer>
+    
+</resources>

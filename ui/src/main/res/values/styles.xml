@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/BasewindowAnimTheme</item>
+        <!-- Actionbar color -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <!-- Status bar color -->
+        <item name="colorPrimaryDark">@color/red</item>
+        <item name="android:windowBackground">@color/bg_gray</item>
+        <!-- TextView Size -->
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <!-- toolbar 返回键颜色 -->
+        <item name="colorControlNormal">@color/common_blue</item>
+        <item name="android:alertDialogTheme">@style/dialogStyle</item>
+    </style>
+
+    <!-- ToolBar菜单样式 -->
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="actionMenuTextColor">@color/common_blue</item> <!--  敲定颜色-->
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle
+        </item> <!--新增一个item，用于控制menu-->
+        <item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <!-- 返回键样式 -->
+        <item name="android:textSize">16sp</item> <!--  搞掂字体大小-->
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--把该属性改为false即可使menu位置位于toolbar之下-->
+    </style>
+    <style name="OverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_more</item>
+    </style>
+    <!-- dialog设置 -->
+    <style name="dialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/black</item>
+        <item name="android:textColorPrimary">@color/color_30_black</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    <!-- activity 左进右出切换动画 -->
+    <style name="BasewindowAnimTheme" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/push_left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
+    </style>
+    <!-- activity 右下角展示切换动画 -->
+    <style name="RightBottomTheme" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/dialog_in_animation</item>
+        <item name="android:activityCloseExitAnimation">@anim/dialog_out_animation</item>
+    </style>
+    <!--  viewpage文本  滑动标签标题
+     -->
+    <style name="viewpage_slidingTabTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/viewpage_selector_slide_title</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="dialog_bottom" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
+    </style>
+
+    <style name="pop_into_out">
+        <item name="android:windowEnterAnimation">@anim/pop_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_out_anim</item>
+    </style>
+
+    <!-- 自定义loading dialog -->
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item><!--背景透明-->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!--首页标题栏使用的TabLayout-->
+    <style name="MainFrameToolbarTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/common_blue</item>
+        <item name="tabBackground">@color/white</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabPaddingStart">0dip</item>
+        <item name="tabPaddingEnd">0dip</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Design.Tab.MainFrameToolbarTabLayout
+        </item>
+        <item name="tabMinWidth">70dp</item>
+        <item name="tabSelectedTextColor">@color/common_black</item>
+        <item name="tabGravity">center</item>
+    </style>
+
+    <style name="TextAppearance.Design.Tab.MainFrameToolbarTabLayout">
+        <item name="android:textColor">@color/common_gray</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MovieToolbarTabLayout" parent="@style/MainFrameToolbarTabLayout">
+        <item name="tabPaddingStart">10dip</item>
+        <item name="tabPaddingEnd">10dip</item>
+    </style>
+
+    <style name="MainFrameTextStyle">
+        <item name="android:minHeight">50dp</item>
+        <item name="android:textColor">@color/common_black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!--<style name="social_pop_anim" parent="android:Animation">-->
+    <!--<item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>-->
+    <!--<item name="android:windowExitAnimation">@anim/pop_exit_anim</item>-->
+    <!--</style>-->
+
+    <style name="menu_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

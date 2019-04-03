@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_ececec">#33000000</color>
+
+    <color name="common_background_color">#F0F0F0</color>
+
+    <color name="blue_color">#6bde9d</color>
+
+    <color name="color_red">#f43131</color>
+    <color name="color_org">#ff7e6a</color>
+    <color name="color_green">#6bde9d</color>
+    <color name="color_green_press">#27d974</color>
+    <color name="color_red_dark">#ef0b0b</color>
+
+    <color name="color_10_white">#1affffff</color>
+    <color name="color_30_white">#4dffffff</color>
+    <color name="color_60_white">#99ffffff</color>
+    <color name="color_80_white">#ccffffff</color>
+    <color name="color_10_black">#1a000000</color>
+    <color name="color_20_black">#33000000</color>
+    <color name="color_30_black">#4d000000</color>
+    <color name="color_80_black">#9d000000</color>
+
+    <color name="white">#ffffff</color>
+    <color name="gray">#939393</color>
+    <color name="yellow_dark">#fab206</color>
+    <color name="red">#ff8b8c</color>
+    <color name="text_red">#d0021b</color>
+    <color name="blue">#3eb3ff</color>
+    <color name="black">#474747</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="bg_gray">#e4e4e4</color>
+    <color name="comment_text_bg">#727f9a</color>
+    <color name="divider_line">#eaeaea</color>
+
+    <color name="common_yellow_normal">#fab206</color>
+    <color name="common_yellow_press">#ffa200</color>
+
+    <color name="common_blue">#3fb3ff</color>
+    <color name="common_black">#2a2a2a</color>
+    <color name="common_gray">#939393</color>
+    <color name="common_red">#fd8d8a</color>
+    <color name="common_btn_normal">#3eb3ff</color>
+    <color name="common_btn_press">#3085e5</color>
+
+    <color name="common_item_fg_1">#00ffffff</color>
+    <color name="common_item_fg_2">#33000000</color>
+    <color name="color_2a2a2a">#2a2a2a</color>
+    <color name="name_selector_color">#cccccc</color>
+</resources>

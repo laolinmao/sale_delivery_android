@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 通知栏 -->
+    <item name="notify_pho_sys_info" type="id" />
+    <item name="notify_pho_comment_info" type="id" />
+    <item name="notify_pho_praise_info" type="id" />
+    <item name="notify_pho_club_info" type="id" />
+    <item name="notify_pho_act_info" type="id" />
+
+    <item name="value_tag" type="id" />
+</resources>

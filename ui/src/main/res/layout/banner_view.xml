@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:paper="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@color/bg_gray"
+             android:descendantFocusability="blocksDescendants">
+
+    <com.histudio.ui.custom.banner.AutoScrollViewPager
+            android:id="@+id/poster_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            paper:radio="0.361"/>
+
+    <LinearLayout
+            android:id="@+id/poster_points"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"/>
+
+</FrameLayout>

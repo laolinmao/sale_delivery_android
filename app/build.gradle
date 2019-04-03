@@ -1,0 +1,120 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '27.0.3'
+
+    signingConfigs {
+        zykj {
+            keyAlias 'zykj'
+            keyPassword 'ZykjXLZJhyn&ZykjXLZJhyn&'
+            storeFile file('../zykj.jks')
+            storePassword 'ZykjXLZJhyn&ZykjXLZJhyn&'
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.devstudio.delivery.sale"
+        minSdkVersion 16
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0.1"
+        multiDexEnabled true
+        signingConfig signingConfigs.zykj
+        ndk {
+            abiFilters "armeabi", "x86"
+        }
+        //添加了javaCompileOptions
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "e64b5cd93c946a267b08d933", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.zykj
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+        release {
+            signingConfig signingConfigs.zykj
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+        }
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
+    }
+    productFlavors {
+    }
+
+//    apk添加版本号, 名称, 编译时间
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+                def fileName = "delivery-${defaultConfig.versionCode}-V${defaultConfig.versionName}-${releaseTime()}.apk"
+                outputFileName = fileName //  output.outputFile 改为 outputFileName
+            }
+        }
+    }
+
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    afterEvaluate {
+        tasks.matching {
+            it.name.startsWith('dex')
+        }.each { dx ->
+            if (dx.additionalParameters == null) {
+                dx.additionalParameters = []
+            }
+            dx.additionalParameters += '--multi-dex' // enable multidex
+
+            // optional
+            // dx.additionalParameters += "--main-dex-list=$projectDir/<filename>".toString() // enable the main-dex-list
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':ui')
+    implementation project(':selector')
+    implementation project(':update')
+    implementation 'com.android.support:multidex:1.0.0'
+}
