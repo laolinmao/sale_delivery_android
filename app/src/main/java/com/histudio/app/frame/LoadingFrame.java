@@ -46,13 +46,6 @@ public class LoadingFrame extends HiBaseFrame {
         super.onHandleFrameMessage(msg);
         switch (msg.what) {
             case Constants.LOADING_FRAME_AFTER_LOADING:
-//                    // 第一次安装需要转到引导界面，并且主页面流程进行预加载，不需要打断
-//                    if (HiManager.getBean(SharedPrefManager.class).isGuidVersion()) {
-//                        HiManager.getBean(SharedPrefManager.class).saveGuidVersion();
-//                        Intent iguid = new Intent(this, GuideFrame.class);
-//                        startActivity(iguid);
-//                        finish();
-//                    } else {
                 ActivityUtil.launchLoginActivity(LoadingFrame.this, MainTabFrame.class);
                 finish();
                 break;

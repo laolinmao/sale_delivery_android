@@ -97,12 +97,17 @@ public class FileUtils {
         return hasSDCard() ? mSdRootPath : mDataRootPath;
     }
 
+    public static String getBaseFilePath() {
+        return getFilePath() + BASE_FILE_PATH;
+    }
+
     /**
      * 获取储存Image的目录
      *
      * @return
      */
     public static String getImageCacheDirectory() {
+        checkFile(getFilePath() + BASE_IMAGE_CACHE_PATH);
         return getFilePath() + BASE_IMAGE_CACHE_PATH;
     }
 
@@ -112,6 +117,7 @@ public class FileUtils {
      * @return
      */
     public static String getAudioCacheDirectory() {
+        checkFile(getFilePath() + BASE_AUDIO_CACHE_PATH);
         return getFilePath() + BASE_AUDIO_CACHE_PATH;
     }
 
@@ -130,6 +136,7 @@ public class FileUtils {
      * @return
      */
     public static String getCamCacheDirectory() {
+        checkFile(getFilePath() + BASE_IMAGE_CAMERA_PATH);
         return getFilePath() + BASE_IMAGE_CAMERA_PATH;
     }
 
@@ -139,6 +146,7 @@ public class FileUtils {
      * @return
      */
     public static String getExceptionsDirectory() {
+        checkFile(getFilePath() + BASE_EXCEPTION_DIR_PATH);
         return getFilePath() + BASE_EXCEPTION_DIR_PATH;
     }
 
@@ -148,6 +156,7 @@ public class FileUtils {
      * @return
      */
     public static String getBaseInfoCacheDirectory() {
+        checkFile(getFilePath() + BASE_INFO_PATH);
         return getFilePath() + BASE_INFO_PATH;
     }
 
@@ -157,6 +166,7 @@ public class FileUtils {
      * @return
      */
     public static String getImageDownloadDirectory() {
+        checkFile(getFilePath() + BASE_IMAGE_DOWNLOAD_PATH);
         return getFilePath() + BASE_IMAGE_DOWNLOAD_PATH;
     }
 
