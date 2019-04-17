@@ -278,9 +278,8 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
         super.onHandlePageMessage(message);
         switch (message.what) {
             case BConstants.SHOW_LOADING_VIEW:
-                if (Foreground.get().isForeground()) {// 程序在前台 才展示
-                    showLoadingView();
-                }
+
+                showLoadingView();
                 break;
             case BConstants.TASK_LOADFAIL:
                 Throwable error = (Throwable) message.obj;
@@ -288,18 +287,21 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
                 handlerError(error);
                 break;
             case BConstants.HIDE_LOADING_VIEW:
-                if (Foreground.get().isForeground()) {// 程序在前台 才隐藏
-                    hideLoadingView();
-                }
+
+                hideLoadingView();
                 break;
 
             case BConstants.TASK_LOADED:
                 break;
             case BConstants.SHOW_LOADING_DIALOG:
-                showLoadingDialog();
+                if (Foreground.get().isForeground()) {// 程序在前台 才展示
+                    showLoadingDialog();
+                }
                 break;
             case BConstants.HIDE_LOADING_DIALOG:
-                hideLoadingDialog();
+                if (Foreground.get().isForeground()) {// 程序在前台 才隐藏
+                    hideLoadingDialog();
+                }
 
                 break;
         }
