@@ -15,12 +15,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonSyntaxException;
 import com.histudio.base.GlobalHandler;
 import com.histudio.base.HiApplication;
 import com.histudio.base.HiManager;
 import com.histudio.base.constant.BConstants;
 import com.histudio.base.util.BUtil;
+import com.histudio.base.util.Foreground;
 import com.histudio.ui.R;
+
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 /**
  * 有加载行为的page
@@ -263,18 +269,6 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
                 }
             });
         }
-        //       暂时废弃使用整个页面视图的刷新
-        //        pageHandler.post(new Runnable() {
-        //
-        //            @Override
-        //            public void run() {
-        //                if (contentContainer.findViewById(R.id.progress_bar) != null) {
-        //                    contentContainer.removeView(getLoadingView());
-        //                    ((LoadingView) loadingView).setProgressBarText("");
-        //                    loadingView = null;
-        //                }
-        //            }
-        //        });
 
     }
 
@@ -284,15 +278,19 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
         super.onHandlePageMessage(message);
         switch (message.what) {
             case BConstants.SHOW_LOADING_VIEW:
-                showLoadingView();
+                if (Foreground.get().isForeground()) {// 程序在前台 才展示
+                    showLoadingView();
+                }
                 break;
             case BConstants.TASK_LOADFAIL:
-                String errorStr = (String) message.obj;
+                Throwable error = (Throwable) message.obj;
                 message.arg1 = GlobalHandler.MESSAGE_HANDLED;
-                handlerError(errorStr);
+                handlerError(error);
                 break;
             case BConstants.HIDE_LOADING_VIEW:
-                hideLoadingView();
+                if (Foreground.get().isForeground()) {// 程序在前台 才隐藏
+                    hideLoadingView();
+                }
                 break;
 
             case BConstants.TASK_LOADED:
@@ -420,9 +418,16 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
         loadingTask();
     }
 
-    public void handlerError(String errorStr) {
+    public void handlerError(Throwable e) {
         // 处理错误，一般是隐藏loadingview，并提示错误
-        Toast.makeText(HiApplication.instance.getApplicationContext(), errorStr, Toast.LENGTH_SHORT).show();
+        // 处理错误，一般是隐藏loadingview，并提示错误
+        String error = e.getMessage();
+        if (e instanceof SocketTimeoutException || e instanceof ConnectException || e instanceof UnknownHostException) {
+            error = "加载失败，请检查网络！";
+        } else if (e instanceof JsonSyntaxException) {
+            error = "暂无数据";
+        }
+        Toast.makeText(HiApplication.instance.getApplicationContext(), error, Toast.LENGTH_SHORT).show();
         hideLoadingView();
         hideLoadingDialog();
     }

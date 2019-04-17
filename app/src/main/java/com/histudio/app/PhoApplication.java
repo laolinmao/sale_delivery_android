@@ -2,14 +2,12 @@ package com.histudio.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.os.Message;
 import android.support.multidex.MultiDex;
 
 import com.histudio.app.crash.CrashHandler;
 import com.histudio.app.login.LoginFrame;
 import com.histudio.app.main.MainTabFrame;
-import com.histudio.app.manager.MediaManager;
 import com.histudio.app.util.Constants;
 import com.histudio.base.HiApplication;
 import com.histudio.base.HiManager;
@@ -65,18 +63,18 @@ public class PhoApplication extends HiApplication {
     }
 
 
-    @Override
-    protected void preSubHandler(Message msg) {
-        super.preSubHandler(msg);
-        switch (msg.what) {
-            case BConstants.UPDATE_ORDER:
-                AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.order);
-                MediaManager.playOrderSound(file);
-
-                break;
-
-        }
-    }
+//    @Override
+//    protected void preSubHandler(Message msg) {
+//        super.preSubHandler(msg);
+//        switch (msg.what) {
+//            case BConstants.UPDATE_ORDER:
+//                AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.order);
+//                MediaManager.playOrderSound(file);
+//
+//                break;
+//
+//        }
+//    }
 
     @Override
     protected void onRemoteProcessInit(String processName) throws Exception {

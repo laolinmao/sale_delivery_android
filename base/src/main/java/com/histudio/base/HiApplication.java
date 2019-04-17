@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Message;
 
+import com.histudio.base.util.Foreground;
 import com.socks.library.KLog;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public abstract class HiApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-
+        Foreground.init(this);
         /* 是否是主进程,不是主进程，就跳过初始化，比如service的独立进程 */
         String processName = getCurProcessName(this);
         KLog.i("processName: " + processName);
