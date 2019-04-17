@@ -7,10 +7,6 @@ import com.histudio.base.GlobalHandler;
 import com.histudio.base.HiManager;
 import com.histudio.base.constant.BConstants;
 
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-
 import rx.Subscriber;
 
 /**
@@ -58,12 +54,8 @@ public class LoadingSubscriber<T> extends Subscriber<T> implements SubscriberCan
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
-        String error = e.getMessage();
-        if (e instanceof SocketTimeoutException || e instanceof ConnectException || e instanceof UnknownHostException) {
-            error = "加载失败，请检查网络！";
-        }
         Message msg = new Message();
-        msg.obj = error;
+        msg.obj = e;
         msg.what = BConstants.TASK_LOADFAIL;
         HiManager.getBean(GlobalHandler.class).sendMessage(msg);
         dismissLoadingView();
