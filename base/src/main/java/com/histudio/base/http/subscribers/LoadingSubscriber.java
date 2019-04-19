@@ -1,20 +1,16 @@
 package com.histudio.base.http.subscribers;
 
 
-import android.os.Message;
-
 import com.histudio.base.GlobalHandler;
 import com.histudio.base.HiManager;
 import com.histudio.base.constant.BConstants;
-
-import rx.Subscriber;
 
 /**
  * 用于在Http请求开始时，自动显示一个loadingview
  * 调用者自己对请求数据进行处理
  * Created by ljh on 16/3/10.
  */
-public class LoadingSubscriber<T> extends Subscriber<T> implements SubscriberCancelListener {
+public class LoadingSubscriber<T> extends BaseSubscriber<T>  {
 
     private SubscriberOnNextListener mSubscriberOnNextListener;
 
@@ -53,11 +49,7 @@ public class LoadingSubscriber<T> extends Subscriber<T> implements SubscriberCan
      */
     @Override
     public void onError(Throwable e) {
-        e.printStackTrace();
-        Message msg = new Message();
-        msg.obj = e;
-        msg.what = BConstants.TASK_LOADFAIL;
-        HiManager.getBean(GlobalHandler.class).sendMessage(msg);
+        super.onError(e);
         dismissLoadingView();
     }
 
@@ -74,10 +66,4 @@ public class LoadingSubscriber<T> extends Subscriber<T> implements SubscriberCan
         HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.TASK_LOADED);
     }
 
-    @Override
-    public void onCancelSubscriber() {
-        if (!this.isUnsubscribed()) {
-            this.unsubscribe();
-        }
-    }
 }
