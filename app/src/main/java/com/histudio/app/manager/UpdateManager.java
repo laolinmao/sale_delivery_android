@@ -15,11 +15,10 @@ import com.histudio.base.constant.BConstants;
 import com.histudio.base.entity.Update;
 import com.histudio.base.http.ApiException;
 import com.histudio.base.http.CommonMethods;
+import com.histudio.base.http.subscribers.BaseSubscriber;
 import com.histudio.base.util.ApkUtil;
 import com.histudio.base.util.NetWorkUtil;
 import com.histudio.ui.base.HiBaseFrame;
-
-import rx.Subscriber;
 
 /**
  * 升级相关
@@ -38,7 +37,7 @@ public class UpdateManager extends HiManager {
             Util.showToastTip("当前网络不可用，请检查网络情况");
             return;
         }
-        HiManager.getBean(CommonMethods.class).checkUpdate(new Subscriber<Update>() {
+        HiManager.getBean(CommonMethods.class).checkUpdate(new BaseSubscriber<Update>() {
             @Override
             public void onCompleted() {
 
