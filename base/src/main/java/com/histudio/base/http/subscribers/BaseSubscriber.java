@@ -31,9 +31,16 @@ public class BaseSubscriber<T> extends Subscriber<T> {
         return;
     }
 
+    protected void showLoadingView() {
+        HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.SHOW_LOADING_DIALOG);
+    }
+
+    protected void dismissLoadingView() {
+        HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.HIDE_LOADING_DIALOG);
+    }
     @Override
     public void onCompleted() {
-
+        dismissLoadingView();
     }
 
     @Override

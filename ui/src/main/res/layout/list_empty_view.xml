@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:weightSum="3.5" >
+    android:background="#F0F0F0"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/empty_load_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="10dp"
-        android:scaleType="fitCenter" />
 
-    <TextView
-        android:id="@+id/emptyViewText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.3"
-        android:textColor="#939393"
-        android:textSize="@dimen/abc_text_size_small_material" />
-
-    <TextView
-        android:id="@+id/empty_button"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center_horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="再试试吧"
-        android:textColor="@color/white"
-        android:textSize="@dimen/abc_text_size_medium_material"
-        android:visibility="gone" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/empty_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/empty_score" />
+
+        <TextView
+            android:id="@+id/empty_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="暂无数据"
+            android:textColor="#666666"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/empty_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="120dp"
+            android:background="@drawable/gray_circle_stroke"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="重新加载"
+            android:textColor="#666666"
+            android:textSize="12dp" />
+
+    </FrameLayout>
+
 
 </LinearLayout>

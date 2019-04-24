@@ -6,11 +6,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,24 +53,6 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
     public HiLoadablePage(Activity context) {
         super(context);
         mActivity = context;
-    }
-
-    public HiLoadablePage(Activity context, AttributeSet attrs) {
-        super(context, attrs);
-        mActivity = context;
-    }
-
-    public void onPause() {
-        HiManager.getBean(GlobalHandler.class).post(new Runnable() {
-
-            @Override
-            public void run() {
-                if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-
-            }
-        });
     }
 
     // 延迟初始化，把创建视图和初始化视图分离
@@ -155,12 +135,9 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
      */
     protected View createTipView(String msg) {
         View emptyView = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
-
         // 提示
-        TextView emptyViewText = (TextView) emptyView.findViewById(R.id.emptyViewText);
+        TextView emptyViewText = (TextView) emptyView.findViewById(R.id.empty_text);
         emptyViewText.setText(msg);
-
-        ImageView emptyImage = (ImageView) emptyView.findViewById(R.id.empty_load_image);
 
         return emptyView;
 
@@ -170,9 +147,16 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
      * 创建空视图
      */
     protected View createEmptyView() {
-        emptyView = createTipView("这里什么也没有！");
+        emptyView = createTipView("暂无数据");
         emptyView.setId(R.id.hi_empty_view_id);
         return emptyView;
+    }
+
+    protected void addEmptyView(String msg){
+        View emptyView = createTipView(msg);
+        contentContainer.removeAllViews();
+        contentContainer.addView(emptyView);
+
     }
 
     /**
@@ -188,10 +172,9 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
      * 创建加载失败视图
      */
     protected View createLoadErrorView() {
-        //        Drawable drawable = getResources().getDrawable(R.drawable.icon_empty);
         View errorView = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
         // 加载失败提示
-        TextView errorTextView = (TextView) errorView.findViewById(R.id.emptyViewText);
+        TextView errorTextView = (TextView) errorView.findViewById(R.id.empty_text);
         errorTextView.setText("网络数据加载失败，点击重新加载。。。");
         TextView errorButton = (TextView) errorView.findViewById(R.id.empty_button);
         errorButton.setVisibility(VISIBLE);
@@ -204,8 +187,6 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
             }
         });
 
-        //        ImageView errorImageView = (ImageView) errorView.findViewById(R.id.empty_load_image);
-        //        errorImageView.setImageDrawable(drawable);
 
         return errorView;
     }
@@ -285,6 +266,7 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
                 Throwable error = (Throwable) message.obj;
                 message.arg1 = GlobalHandler.MESSAGE_HANDLED;
                 handlerError(error);
+
                 break;
             case BConstants.HIDE_LOADING_VIEW:
 
@@ -430,6 +412,7 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
             error = "暂无数据";
         }
         Toast.makeText(HiApplication.instance.getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+        addEmptyView(error);
         hideLoadingView();
         hideLoadingDialog();
     }

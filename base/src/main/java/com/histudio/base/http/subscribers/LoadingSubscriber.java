@@ -18,14 +18,6 @@ public class LoadingSubscriber<T> extends BaseSubscriber<T>  {
         this.mSubscriberOnNextListener = mSubscriberOnNextListener;
     }
 
-    private void showLoadingView() {
-        HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.SHOW_LOADING_DIALOG);
-    }
-
-    private void dismissLoadingView() {
-        HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.HIDE_LOADING_DIALOG);
-    }
-
     /**
      * 订阅开始时调用
      * 显示ProgressDialog
@@ -35,23 +27,7 @@ public class LoadingSubscriber<T> extends BaseSubscriber<T>  {
         showLoadingView();
     }
 
-    /**
-     * 完成，隐藏ProgressDialog
-     */
-    @Override
-    public void onCompleted() {
-        dismissLoadingView();
-    }
 
-    /**
-     * 对错误进行统一处理
-     * 隐藏ProgressDialog
-     */
-    @Override
-    public void onError(Throwable e) {
-        super.onError(e);
-        dismissLoadingView();
-    }
 
     /**
      * 将onNext方法中的返回结果交给Activity或Fragment自己处理

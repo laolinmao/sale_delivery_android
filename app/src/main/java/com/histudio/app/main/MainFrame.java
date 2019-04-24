@@ -22,7 +22,7 @@ public class MainFrame extends HiToolbarFrame {
 
     @Override
     protected String getActionBarCenterTitle() {
-        return "液化气管理系统";
+        return "基础系统";
     }
 
     private long firstTime;
