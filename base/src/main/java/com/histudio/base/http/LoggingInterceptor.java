@@ -13,9 +13,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.internal.http.HttpEngine;
 import okio.Buffer;
 import okio.BufferedSource;
+
+import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
+import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
+import static okhttp3.internal.http.StatusLine.HTTP_CONTINUE;
 
 public class LoggingInterceptor implements Interceptor {
     private final Charset UTF8 = Charset.forName("UTF-8");
@@ -40,7 +43,7 @@ public class LoggingInterceptor implements Interceptor {
             body = buffer.readString(charset);
         }
 
-        KLog.i("发送请求\nmethod："+ request.method()+"\n"+"url："+request.url()+"\n"+"headers:"+request.headers()+"\n" +"body："+body);
+        KLog.i("发送请求\nmethod：" + request.method() + "\n" + "url：" + request.url() + "\n" + "headers:" + request.headers() + "\n" + "body：" + body);
 
         long startNs = System.nanoTime();
         Response response = chain.proceed(request);
@@ -49,7 +52,7 @@ public class LoggingInterceptor implements Interceptor {
         ResponseBody responseBody = response.body();
         String rBody = null;
 
-        if (HttpEngine.hasBody(response)) {
+        if (hasBody(request, response)) {
             BufferedSource source = responseBody.source();
             source.request(Long.MAX_VALUE); // Buffer the entire body.
             Buffer buffer = source.buffer();
@@ -66,8 +69,42 @@ public class LoggingInterceptor implements Interceptor {
             rBody = buffer.clone().readString(charset);
         }
 
-        KLog.i("收到响应" + response.code()+ "\n" + response.message() + "\n" + "请求url：" + response.request().url() + "\n" + "请求body：" + body + "\n" + "响应body：" + rBody);
+        KLog.i("收到响应" + response.code() + "\n" + response.message() + "\n" + "请求url：" + response.request().url() + "\n" + "请求body：" + body + "\n" + "响应body：" + rBody);
 
         return response;
     }
+
+    private boolean hasBody(Request request, Response response) {
+        // HEAD requests never yield a body regardless of the response headers.
+        if (response.request().method().equals("HEAD")) {
+            return false;
+        }
+
+        int responseCode = response.code();
+        if ((responseCode < HTTP_CONTINUE || responseCode >= 200)
+                && responseCode != HTTP_NO_CONTENT
+                && responseCode != HTTP_NOT_MODIFIED) {
+            return true;
+        }
+
+        // If the Content-Length or Transfer-Encoding headers disagree with the
+        // response code, the response is malformed. For best compatibility, we
+        // honor the headers.
+        if (stringToLong(request.headers().get("Content-Length")) != -1
+                || "chunked".equalsIgnoreCase(response.header("Transfer-Encoding"))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private long stringToLong(String s) {
+        if (s == null) return -1;
+        try {
+            return Long.parseLong(s);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
 }

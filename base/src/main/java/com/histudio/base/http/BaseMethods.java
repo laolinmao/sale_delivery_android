@@ -30,6 +30,11 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -37,13 +42,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
  * Created by ljh on 16/3/9.
@@ -165,9 +164,9 @@ public abstract class BaseMethods implements ISingleable {
                 //配置转化库，默认是Gson
                 //                .addConverterFactory(GsonConverterFactory.create())
                 //传入buildGson生成的自定义Gson
-                .addConverterFactory(GsonConverterFactory.create(buildGson()))
+                .addConverterFactory(ResponseConverterFactory.create(buildGson()))
                 //配置回调库，采用RxJava
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 //设置OKHttpClient为网络客户端
                 .client(client)
                 .build();
@@ -191,9 +190,9 @@ public abstract class BaseMethods implements ISingleable {
      * @param o 由调用者传过来的观察者对象
      */
 
-    protected <T> void toSubscribe(Observable<T> o, Subscriber<T> s) {
+    protected <T> void toSubscribe(Observable<T> o, Observer<T> s) {
         o.subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
+//                .as(AutoDispose.<T>autoDisposable(AndroidLifecycleScopeProvider.from(this)))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s);
     }
@@ -204,10 +203,10 @@ public abstract class BaseMethods implements ISingleable {
      *
      * @param <T> Subscriber真正需要的数据类型，也就是Data部分的数据类型
      */
-    protected class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
+    protected class HttpResultFunc<T> implements Function<HttpResult<T>, T> {
 
         @Override
-        public T call(HttpResult<T> httpResult) {
+        public T apply(HttpResult<T> httpResult) {
 
             if (httpResult.getError_code() != 0) {
                 // 1 开头直接系统异常

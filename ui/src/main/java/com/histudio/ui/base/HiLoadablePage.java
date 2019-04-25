@@ -412,7 +412,7 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
             error = "暂无数据";
         }
         Toast.makeText(HiApplication.instance.getApplicationContext(), error, Toast.LENGTH_SHORT).show();
-        addEmptyView(error);
+//        addEmptyView(error);
         hideLoadingView();
         hideLoadingDialog();
     }

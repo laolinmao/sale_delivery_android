@@ -9,16 +9,15 @@ import com.histudio.base.HiManager;
 import com.histudio.base.constant.BConstants;
 import com.histudio.base.util.NetWorkUtil;
 
-import rx.Subscriber;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
-public class BaseSubscriber<T> extends Subscriber<T> {
 
-    /**
-     * 订阅开始时调用
-     * 显示ProgressDialog
-     */
+public class BaseSubscriber<T> implements Observer<T> {
+
+
     @Override
-    public void onStart() {
+    public void onSubscribe(Disposable d) {
         //        showLoadingView();
         if (!NetWorkUtil.isNetworkAvailable(HiApplication.instance)) {
 
@@ -27,9 +26,14 @@ public class BaseSubscriber<T> extends Subscriber<T> {
         }
 
         // **一定要主动调用下面这一句**
-        onCompleted();
-        return;
+        onComplete();
     }
+
+    @Override
+    public void onComplete() {
+        dismissLoadingView();
+    }
+
 
     protected void showLoadingView() {
         HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.SHOW_LOADING_DIALOG);
@@ -37,10 +41,6 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
     protected void dismissLoadingView() {
         HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.HIDE_LOADING_DIALOG);
-    }
-    @Override
-    public void onCompleted() {
-        dismissLoadingView();
     }
 
     @Override

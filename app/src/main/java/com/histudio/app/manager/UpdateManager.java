@@ -1,9 +1,9 @@
 package com.histudio.app.manager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Environment;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import com.azhon.appupdate.manager.DownloadManager;
@@ -38,10 +38,6 @@ public class UpdateManager extends HiManager {
             return;
         }
         HiManager.getBean(CommonMethods.class).checkUpdate(new BaseSubscriber<Update>() {
-            @Override
-            public void onCompleted() {
-
-            }
 
             @Override
             public void onError(Throwable e) {
@@ -67,6 +63,12 @@ public class UpdateManager extends HiManager {
                 }
             }
         }, vcode);
+//        HiManager.getBean(CommonMethods.class).checkUpdate(new LoadingSubscriber(new SubscriberOnNextListener<Update>() {
+//            @Override
+//            public void onNext(Update data) {
+//
+//            }
+//        }), vcode);
 
     }
 

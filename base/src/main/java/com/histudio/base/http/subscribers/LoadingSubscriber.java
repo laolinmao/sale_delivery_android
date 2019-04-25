@@ -5,6 +5,8 @@ import com.histudio.base.GlobalHandler;
 import com.histudio.base.HiManager;
 import com.histudio.base.constant.BConstants;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * 用于在Http请求开始时，自动显示一个loadingview
  * 调用者自己对请求数据进行处理
@@ -23,7 +25,8 @@ public class LoadingSubscriber<T> extends BaseSubscriber<T>  {
      * 显示ProgressDialog
      */
     @Override
-    public void onStart() {
+    public void onSubscribe(Disposable d) {
+        super.onSubscribe(d);
         showLoadingView();
     }
 

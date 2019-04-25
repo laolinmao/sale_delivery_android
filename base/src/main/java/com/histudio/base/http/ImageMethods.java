@@ -15,10 +15,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import rx.Observable;
-import rx.Subscriber;
+
 
 /**
  * Created by ljh on 16/3/9.
@@ -38,7 +39,7 @@ public class ImageMethods extends BaseMethods {
      * 传单个图片
      */
 
-    public void updateImageInfo(Subscriber<ResIdData> remotePath, String localPath) {
+    public void updateImageInfo(Observer<ResIdData> remotePath, String localPath) {
         uploadImageTask task = new uploadImageTask(remotePath, localPath);
         task.execute();
     }
@@ -48,9 +49,9 @@ public class ImageMethods extends BaseMethods {
 
     private class uploadImageTask extends AsyncTask<String, String, File> {
         private String localPath;
-        private Subscriber<ResIdData> remotePath;
+        private Observer<ResIdData> remotePath;
 
-        public uploadImageTask(Subscriber<ResIdData> remotePath, String localPath) {
+        public uploadImageTask(Observer<ResIdData> remotePath, String localPath) {
             this.remotePath = remotePath;
             this.localPath = localPath;
         }
