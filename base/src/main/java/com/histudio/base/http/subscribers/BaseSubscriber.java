@@ -8,9 +8,14 @@ import com.histudio.base.HiApplication;
 import com.histudio.base.HiManager;
 import com.histudio.base.constant.BConstants;
 import com.histudio.base.util.NetWorkUtil;
+import com.socks.library.KLog;
+
+import java.io.IOException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+
+import static com.histudio.base.http.BaseMethods.CUSTOM_REPEAT_REQ_PROTOCOL;
 
 
 public class BaseSubscriber<T> implements Observer<T> {
@@ -46,6 +51,14 @@ public class BaseSubscriber<T> implements Observer<T> {
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
+        if (e instanceof IOException) {   //飞行模式等
+            //这里处理一下重复请求的自定义返回的Response 导致的错误，
+            if (e.getMessage().contains(CUSTOM_REPEAT_REQ_PROTOCOL)) {
+                KLog.i("------------可以忽略的重复请求");
+                return;
+            }
+        }
+
         Message msg = new Message();
         msg.obj = e;
         msg.what = BConstants.TASK_LOADFAIL;

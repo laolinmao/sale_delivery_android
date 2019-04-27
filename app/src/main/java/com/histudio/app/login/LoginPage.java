@@ -128,7 +128,7 @@ public class LoginPage extends HiLoadablePage implements TextView.OnEditorAction
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         switch (actionId) {
             case EditorInfo.IME_ACTION_DONE:
-                login();
+                    login();
                 break;
         }
         return false;

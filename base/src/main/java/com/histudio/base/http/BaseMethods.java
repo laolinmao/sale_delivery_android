@@ -11,6 +11,7 @@ import com.histudio.base.constant.BConstants;
 import com.histudio.base.constant.Configuration;
 import com.histudio.base.entity.ISingleable;
 import com.histudio.base.manager.SharedPrefManager;
+import com.histudio.base.util.MD5;
 import com.histudio.base.util.NetWorkUtil;
 import com.histudio.base.util.StringUtil;
 import com.socks.library.KLog;
@@ -22,6 +23,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -39,6 +42,8 @@ import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
+import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
@@ -57,6 +62,8 @@ public abstract class BaseMethods implements ISingleable {
     private static File httpCacheDirectory = new File(HiApplication.instance.getCacheDir(), "histudioCache");
     private static int cacheSize = 10 * 1024 * 1024; // 10 MiB
     private static Cache cache = new Cache(httpCacheDirectory, cacheSize);
+    public static Map<String, Long> requestIdsMap = new HashMap<>();//Value 里面保存的是时间
+    public static final String CUSTOM_REPEAT_REQ_PROTOCOL = "MY_CUSTOM_REPEAT_REQ_PROTOCOL";
 
     //构造方法私有
     protected BaseMethods() {
@@ -98,12 +105,27 @@ public abstract class BaseMethods implements ISingleable {
             public Response intercept(Chain chain) throws IOException {
                 String id = HiManager.getBean(SharedPrefManager.class).getStringByKey("id", "");
                 String userName = HiManager.getBean(SharedPrefManager.class).getStringByKey(BConstants.USER_NAME, "");
-                return chain.proceed(chain.request().newBuilder()
-                        .addHeader("Accept", "application/json")
+                Request originalRequest = chain.request();
+                Request authorisedRequest = originalRequest.newBuilder().addHeader("Accept", "application/json")
                         .addHeader("oper", id.trim())
                         .addHeader("Content-Type", "application/json;charset=UTF-8")
                         .addHeader("opername", StringUtil.encodeString(userName))
-                        .build());
+                        .build();
+                //拦截处理重复的HTTP 请求,假如你们的业务有需求部分请求不去重可以自己处理
+                String requestKey = MD5.GetMD5Code(authorisedRequest.toString());
+                if (null == requestIdsMap.get(requestKey) || System.currentTimeMillis() - requestIdsMap.get(requestKey) > 100) {
+                    requestIdsMap.put(requestKey, System.currentTimeMillis());
+                    KLog.e("REPEAT REQUEST", "Add Request:" + requestKey);
+                } else {
+
+                    return new Response.Builder()
+                            .protocol(Protocol.get(CUSTOM_REPEAT_REQ_PROTOCOL))
+                            .request(authorisedRequest) //multi thread
+                            .build();
+                }
+                Response originalResponse = chain.proceed(authorisedRequest);
+
+                return originalResponse.newBuilder().build();
 
             }
         };
