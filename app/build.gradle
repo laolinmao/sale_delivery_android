@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '27.0.3'
+    compileSdkVersion cfgs.compileSdkVersion
+    buildToolsVersion cfgs.buildToolsVersion
 
     signingConfigs {
         zykj {
@@ -15,8 +15,8 @@ android {
 
     defaultConfig {
         applicationId "com.devstudio.delivery.sale"
-        minSdkVersion 16
-        targetSdkVersion 21
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
         versionCode 1
         versionName "1.0.1"
         multiDexEnabled true
@@ -116,5 +116,5 @@ dependencies {
     implementation project(':ui')
     implementation project(':selector')
     implementation project(':update')
-    implementation 'com.android.support:multidex:1.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
 }
