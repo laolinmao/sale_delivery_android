@@ -58,6 +58,7 @@ public interface BConstants {
     // =======================消息处理5000 结束===========================
 
     int COMMON_PAGE_SIZE = 10;
+    int FRAME_MARK_LOADING_FRAME = 1109;
     int FRAME_MARK_LOGIN_FRAME = 1110;
     int FRAME_MARK_MAIN_FRAME = 1111;
     int FRAME_MARK_GROUP_FRAME = 1112;

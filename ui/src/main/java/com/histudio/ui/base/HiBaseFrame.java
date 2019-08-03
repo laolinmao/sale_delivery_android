@@ -1,5 +1,6 @@
 package com.histudio.ui.base;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -14,10 +15,9 @@ import com.histudio.base.manager.SharedPrefManager;
 import com.histudio.ui.R;
 import com.histudio.ui.base.permission.PermissionActivity;
 import com.histudio.ui.custom.bar.ImmersionBar;
+import com.histudio.ui.manager.AppManager;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -26,17 +26,26 @@ import java.util.Locale;
  */
 public abstract class HiBaseFrame extends PermissionActivity {
 
-    private static List<HiBaseFrame> activitys = new ArrayList<HiBaseFrame>();
     private FrameHandler mHandler;
     public static HiBaseFrame currentFrame;
     protected ImmersionBar mImmersionBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler = new FrameHandler(this);
-        activitys.add(this);
+        //判断app状态
+        if (HiManager.getBean(AppManager.class).getAppStatus() != AppManager.STATUS_NORMAL) {
+            //被回收，跳转到启动页面
+            Message msg = Message.obtain();
+            msg.what = BConstants.GOTO_FRAM_BY_MARK;
+            msg.arg1 = BConstants.FRAME_MARK_LOADING_FRAME;
+            HiManager.getBean(GlobalHandler.class).sendMessage(msg);
+            return;
+        }
+
+
+        HiManager.getBean(AppManager.class).addActivity(this);
 
         //初始化沉浸式
         if (isImmersionBarEnabled()) {
@@ -47,7 +56,16 @@ public abstract class HiBaseFrame extends PermissionActivity {
     protected void initImmersionBar() {
         //在BaseActivity里初始化
         mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarColor(R.color.white).statusBarDarkFont(true).navigationBarColor(R.color.white).init();
+//        mImmersionBar.statusBarColor(R.color.white).statusBarDarkFont(true).navigationBarColor(R.color.white).init();
+        mImmersionBar.navigationBarColor(R.color.white).init();
+    }
+
+
+    @Override
+    protected void onResume() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        super.onResume();
+        currentFrame = this;
     }
 
     /**
@@ -61,12 +79,6 @@ public abstract class HiBaseFrame extends PermissionActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        currentFrame = this;
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
     }
@@ -75,7 +87,10 @@ public abstract class HiBaseFrame extends PermissionActivity {
     protected void onDestroy() {
         super.onDestroy();
         HiManager.getBean(GlobalHandler.class).unregistHandler(mHandler);
-        activitys.remove(this);
+        HiManager.getBean(AppManager.class).finishActivity(this);
+
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();  //在BaseActivity里销毁
     }
 
     @Override
@@ -88,11 +103,7 @@ public abstract class HiBaseFrame extends PermissionActivity {
      * 退出全部
      */
     public void onExit() {
-        for (HiBaseFrame activity : activitys) {
-            if (activity != null) {
-                activity.finish();
-            }
-        }
+        HiManager.getBean(AppManager.class).AppExit(this);
     }
 
     public void changeAppLanguage() {

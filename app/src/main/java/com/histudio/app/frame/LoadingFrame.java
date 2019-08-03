@@ -7,8 +7,10 @@ import android.view.KeyEvent;
 import com.histudio.app.main.MainTabFrame;
 import com.histudio.app.util.ActivityUtil;
 import com.histudio.app.util.Constants;
+import com.histudio.base.HiManager;
 import com.histudio.base.constant.BConstants;
 import com.histudio.ui.base.HiBaseFrame;
+import com.histudio.ui.manager.AppManager;
 import com.socks.library.KLog;
 
 import butterknife.ButterKnife;
@@ -26,6 +28,8 @@ public class LoadingFrame extends HiBaseFrame {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        HiManager.getBean(AppManager.class).setAppStatus(AppManager.STATUS_NORMAL); // 设置正常
+
         super.onCreate(savedInstanceState);
 
         ButterKnife.bind(this);
