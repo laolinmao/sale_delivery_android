@@ -1,1 +1,1 @@
-include ':app','base','ui','selector','update'
+include ':app','base','ui','picture_library','ucrop','update'

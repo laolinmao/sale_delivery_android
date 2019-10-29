@@ -1,10 +1,6 @@
 package com.histudio.app.util;
 
-import com.histudio.app.PhoApplication;
-import com.histudio.base.GlobalHandler;
-import com.histudio.base.HiManager;
-import com.histudio.base.manager.SharedPrefManager;
-
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +11,19 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.histudio.app.PhoApplication;
+import com.histudio.base.GlobalHandler;
+import com.histudio.base.HiManager;
+import com.histudio.base.manager.SharedPrefManager;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -155,5 +162,70 @@ public class Util {
         Resources r = Resources.getSystem();
         final float scale = r.getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
+    }
+
+    public static void choosePhoto(Activity context, int requestCode, int num) {
+        choosePhoto(context, PictureMimeType.ofImage(), requestCode, num, new ArrayList<LocalMedia>());
+    }
+
+    public static void choosePhoto(Activity context, int type, int requestCode, int selectNum, List<LocalMedia> list) {
+        PictureSelector.create(context)
+                .openGallery(type)//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+//                .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
+                .maxSelectNum(selectNum)// 最大图片选择数量 int
+                .minSelectNum(1)// 最小选择数量 int
+                .imageSpanCount(4)// 每行显示个数 int
+                .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                .previewImage(true)// 是否可预览图片 true or false
+//                .previewVideo(true)// 是否可预览视频 true or false
+//                .enablePreviewAudio() // 是否可播放音频 true or false
+                .isCamera(true)// 是否显示拍照按钮 true or false
+//                .setOutputCameraPath("/CustomPath")// 自定义拍照保存路径,可不填
+//                .enableCrop(true)// 是否裁剪 true or false
+//                .compress(false)// 是否压缩 true or false
+//                .glideOverride()// int glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
+//                .withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
+//                .hideBottomControls()// 是否显示uCrop工具栏，默认不显示 true or false
+//                .isGif()// 是否显示gif图片 true or false
+//                .compressSavePath(context.getFilesDir().getAbsolutePath())//压缩图片保存地址
+//                .freeStyleCropEnabled(true)// 裁剪框是否可拖拽 true or false
+//                .circleDimmedLayer(true)// 是否圆形裁剪 true or false
+//                .showCropFrame(false)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
+//                .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
+                .openClickSound(true)// 是否开启点击声音 true or false
+                .selectionMedia(list)// 是否传入已选图片 List<LocalMedia> list
+//                .previewEggs()// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+//                .cropCompressQuality(90)// 裁剪压缩质量 默认90 int
+//                .synOrAsy(true)//同步true或异步false 压缩 默认同步
+//                .cropWH()// 裁剪宽高比，设置如果大于图片本身宽高则无效 int
+//                .rotateEnabled() // 裁剪是否可旋转图片 true or false
+//                .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
+//                .videoQuality()// 视频录制质量 0 or 1 int
+//                .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
+//                .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int
+//                .recordVideoSecond()//视频秒数录制 默认60s int
+//                .isDragFrame(false)// 是否可拖动裁剪框(固定)
+                .forResult(requestCode);//结果回调onActivityResult code
+    }
+
+    public static void chooseVideo(Activity context, int requestCode) {
+        PictureSelector.create(context)
+                .openGallery(PictureMimeType.ofVideo())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+//                .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
+                .isCamera(false)// 是否显示拍照按钮 true or false
+                .imageSpanCount(4)// 每行显示个数 int
+                .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+//                .compress(true)// 是否压缩 true or false
+                .openClickSound(true)// 是否开启点击声音 true or false
+                .selectionMedia(new ArrayList<>())
+//                .previewEggs()// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+//                .cropCompressQuality(90)// 裁剪压缩质量 默认90 int
+//                .synOrAsy(true)//同步true或异步false 压缩 默认同步
+//                .videoQuality()// 视频录制质量 0 or 1 int
+//                .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int
+//                .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int
+//                .recordVideoSecond()//视频秒数录制 默认60s int
+//                .isDragFrame(false)// 是否可拖动裁剪框(固定)
+                .forResult(requestCode);//结果回调onActivityResult code
     }
 }

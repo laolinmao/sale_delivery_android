@@ -5,11 +5,11 @@ android {
     buildToolsVersion cfgs.buildToolsVersion
 
     signingConfigs {
-        zykj {
-            keyAlias 'zykj'
-            keyPassword 'ZykjXLZJhyn&ZykjXLZJhyn&'
-            storeFile file('../zykj.jks')
-            storePassword 'ZykjXLZJhyn&ZykjXLZJhyn&'
+        water {
+            keyAlias 'hiwater'
+            keyPassword 'HIWater&HIWater&HIWater&'
+            storeFile file('../water.jks')
+            storePassword 'HIWater&HIWater&HIWater&'
         }
     }
 
@@ -20,9 +20,9 @@ android {
         versionCode 1
         versionName "1.0.1"
         multiDexEnabled true
-        signingConfig signingConfigs.zykj
+        signingConfig signingConfigs.water
         ndk {
-            abiFilters "armeabi", "x86"
+            abiFilters "armeabi-v7a"
         }
         //添加了javaCompileOptions
         javaCompileOptions {
@@ -38,11 +38,11 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.zykj
+            signingConfig signingConfigs.water
             buildConfigField "boolean", "LOG_DEBUG", "true"
         }
         release {
-            signingConfig signingConfigs.zykj
+            signingConfig signingConfigs.water
             buildConfigField "boolean", "LOG_DEBUG", "false"
         }
     }
@@ -104,6 +104,16 @@ android {
         exclude 'META-INF/LGPL2.1'
         exclude 'META-INF/rxjava.properties'
     }
+
+
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 
@@ -114,7 +124,7 @@ def releaseTime() {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':ui')
-    implementation project(':selector')
+    implementation project(':picture_library')
     implementation project(':update')
     implementation 'com.android.support:multidex:1.0.3'
 }
