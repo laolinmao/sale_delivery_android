@@ -1,10 +1,6 @@
 package com.histudio.base.http.subscribers;
 
 
-import com.histudio.base.GlobalHandler;
-import com.histudio.base.HiManager;
-import com.histudio.base.constant.BConstants;
-
 /**
  * 用于在Http请求开始时，自动显示一个loadingview
  * 调用者自己对请求数据进行处理
@@ -28,6 +24,5 @@ public class NoLoadingSubscriber<T> extends BaseSubscriber<T>  {
         if (mSubscriberOnNextListener != null) {
             mSubscriberOnNextListener.onNext(t);
         }
-        HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.TASK_LOADED);
     }
 }

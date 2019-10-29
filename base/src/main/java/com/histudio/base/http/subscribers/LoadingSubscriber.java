@@ -1,10 +1,6 @@
 package com.histudio.base.http.subscribers;
 
 
-import com.histudio.base.GlobalHandler;
-import com.histudio.base.HiManager;
-import com.histudio.base.constant.BConstants;
-
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -42,7 +38,6 @@ public class LoadingSubscriber<T> extends BaseSubscriber<T>  {
         if (mSubscriberOnNextListener != null) {
             mSubscriberOnNextListener.onNext(t);
         }
-        HiManager.getBean(GlobalHandler.class).sendEmptyMessage(BConstants.TASK_LOADED);
     }
 
 }

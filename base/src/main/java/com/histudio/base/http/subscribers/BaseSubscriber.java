@@ -36,7 +36,6 @@ public class BaseSubscriber<T> implements Observer<T> {
 
     @Override
     public void onComplete() {
-        dismissLoadingView();
     }
 
 
@@ -67,7 +66,7 @@ public class BaseSubscriber<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
-
+        dismissLoadingView();
     }
 
 

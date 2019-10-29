@@ -273,8 +273,6 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
                 hideLoadingView();
                 break;
 
-            case BConstants.TASK_LOADED:
-                break;
             case BConstants.SHOW_LOADING_DIALOG:
                 if (Foreground.get().isForeground()) {// 程序在前台 才展示
                     showLoadingDialog();
