@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable;
  * 调用者自己对请求数据进行处理
  * Created by ljh on 16/3/10.
  */
-public class LoadingSubscriber<T> extends BaseSubscriber<T>  {
+public class LoadingSubscriber<T> extends BaseSubscriber<T> {
 
     private SubscriberOnNextListener mSubscriberOnNextListener;
 
@@ -27,6 +27,15 @@ public class LoadingSubscriber<T> extends BaseSubscriber<T>  {
     }
 
 
+    /**
+     * 对错误进行统一处理
+     * 隐藏ProgressDialog
+     */
+    @Override
+    public void onError(Throwable e) {
+        super.onError(e);
+        dismissLoadingView();
+    }
 
     /**
      * 将onNext方法中的返回结果交给Activity或Fragment自己处理
@@ -35,6 +44,7 @@ public class LoadingSubscriber<T> extends BaseSubscriber<T>  {
      */
     @Override
     public void onNext(T t) {
+        super.onNext(t);
         if (mSubscriberOnNextListener != null) {
             mSubscriberOnNextListener.onNext(t);
         }

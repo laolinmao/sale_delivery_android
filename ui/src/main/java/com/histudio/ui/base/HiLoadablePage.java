@@ -152,7 +152,7 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
         return emptyView;
     }
 
-    protected void addEmptyView(String msg){
+    protected void addEmptyView(String msg) {
         View emptyView = createTipView(msg);
         contentContainer.removeAllViews();
         contentContainer.addView(emptyView);
@@ -310,7 +310,7 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT));// 设置布局
         }
-        if (((Activity) getContext()) != null && !((Activity) getContext()).isFinishing()) {
+        if (mActivity != null && !mActivity.isFinishing()) {
             if (!loadingDialog.isShowing()) {
                 loadingDialog.show();
             }
@@ -321,14 +321,14 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
         HiManager.getBean(GlobalHandler.class).postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (((Activity) getContext()) != null && !((Activity) getContext()).isFinishing()) {
+                if (mActivity != null && !mActivity.isFinishing()) {
                     if (loadingDialog != null && loadingDialog.isShowing()) {
                         loadingDialog.dismiss();
                     }
                 }
 
             }
-        }, 1000);
+        }, 100);
 
     }
 
@@ -401,7 +401,6 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
     }
 
     public void handlerError(Throwable e) {
-        // 处理错误，一般是隐藏loadingview，并提示错误
         // 处理错误，一般是隐藏loadingview，并提示错误
         String error = e.getMessage();
         if (e instanceof SocketTimeoutException || e instanceof ConnectException || e instanceof UnknownHostException) {

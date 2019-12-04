@@ -34,6 +34,10 @@ public abstract class HiBaseFrame extends PermissionActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler = new FrameHandler(this);
+        //初始化沉浸式
+        if (isImmersionBarEnabled()) {
+            initImmersionBar();
+        }
         //判断app状态
         if (HiManager.getBean(AppManager.class).getAppStatus() != AppManager.STATUS_NORMAL) {
             //被回收，跳转到启动页面
@@ -47,10 +51,7 @@ public abstract class HiBaseFrame extends PermissionActivity {
 
         HiManager.getBean(AppManager.class).addActivity(this);
 
-        //初始化沉浸式
-        if (isImmersionBarEnabled()) {
-            initImmersionBar();
-        }
+
     }
 
     protected void initImmersionBar() {
