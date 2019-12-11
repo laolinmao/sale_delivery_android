@@ -318,17 +318,12 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
     }
 
     protected void hideLoadingDialog() {
-        HiManager.getBean(GlobalHandler.class).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mActivity != null && !mActivity.isFinishing()) {
-                    if (loadingDialog != null && loadingDialog.isShowing()) {
-                        loadingDialog.dismiss();
-                    }
-                }
-
+        if (mActivity != null && !mActivity.isFinishing()) {
+            if (loadingDialog != null && loadingDialog.isShowing()) {
+                loadingDialog.dismiss();
             }
-        }, 100);
+        }
+
 
     }
 
