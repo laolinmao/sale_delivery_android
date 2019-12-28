@@ -1,11 +1,13 @@
 package com.histudio.ui.base;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -25,6 +27,7 @@ import com.histudio.ui.R;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * 有加载行为的page
@@ -258,29 +261,22 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
     public void onHandlePageMessage(Message message) {
         super.onHandlePageMessage(message);
         switch (message.what) {
-            case BConstants.SHOW_LOADING_VIEW:
-
-                showLoadingView();
-                break;
             case BConstants.TASK_LOADFAIL:
                 Throwable error = (Throwable) message.obj;
                 message.arg1 = GlobalHandler.MESSAGE_HANDLED;
                 handlerError(error);
 
                 break;
-            case BConstants.HIDE_LOADING_VIEW:
-
-                hideLoadingView();
-                break;
 
             case BConstants.SHOW_LOADING_DIALOG:
-                if (Foreground.get().isForeground()) {// 程序在前台 才展示
+                if (Foreground.get().isForeground() && isTopActivity(mActivity.getComponentName().getClassName(), mActivity)) {// 程序在前台 才展示
                     showLoadingDialog();
                 }
                 break;
             case BConstants.HIDE_LOADING_DIALOG:
                 if (Foreground.get().isForeground()) {// 程序在前台 才隐藏
                     hideLoadingDialog();
+                    hideLoadingView();
                 }
 
                 break;
@@ -409,4 +405,20 @@ public abstract class HiLoadablePage extends HiBasePage implements SwipeRefreshL
         hideLoadingDialog();
     }
 
+    /**
+     * 检测某Activity是否在当前Task的栈顶
+     * appointClassName：指定类名称
+     */
+    public boolean isTopActivity(String appointClassName, Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> runningTaskInfos = manager.getRunningTasks(1);
+        String topClassName = null;
+        if (null != runningTaskInfos) {
+            topClassName = (runningTaskInfos.get(0).topActivity.getShortClassName()).toString();
+        }
+        if (TextUtils.isEmpty(topClassName)) {
+            return false;
+        }
+        return topClassName.contains(appointClassName);
+    }
 }

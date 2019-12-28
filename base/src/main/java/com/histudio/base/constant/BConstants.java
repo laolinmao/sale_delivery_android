@@ -45,8 +45,6 @@ public interface BConstants {
     int GOTO_FRAM_BY_MARK = 5005;
     int ORDER_REFRESH = 5030;
     int CUSTOM_REFRESH = 5031;
-    int SHOW_LOADING_VIEW = 5034;
-    int HIDE_LOADING_VIEW = 5035;
     int TASK_LOADING = 5037;
     int TASK_LOADFAIL = 5038;
     int ANJIAN_SUC = 5039;

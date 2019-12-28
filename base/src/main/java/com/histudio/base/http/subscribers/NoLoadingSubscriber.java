@@ -21,6 +21,7 @@ public class NoLoadingSubscriber<T> extends BaseSubscriber<T>  {
      */
     @Override
     public void onNext(T t) {
+        super.onNext(t);
         if (mSubscriberOnNextListener != null) {
             mSubscriberOnNextListener.onNext(t);
         }

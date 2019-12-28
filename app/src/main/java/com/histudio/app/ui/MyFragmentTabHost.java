@@ -1,14 +1,13 @@
 package com.histudio.app.ui;
 
 import android.content.Context;
-import android.support.v4.app.FragmentTabHost;
 import android.util.AttributeSet;
 
 /**
  * tabhost
  */
 
-public class MyFragmentTabHost extends FragmentTabHost {
+public class MyFragmentTabHost extends FragmentNewTabHost {
 
 	private String mCurrentTag;
 
